@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: UseFlutter@0
+    inputs:
+      flutterVersion: 'stable'
+
+  - script: flutter pub get
+    displayName: 'Flutter: Get Packages'
+
+  - script: flutter build web
+    displayName: 'Flutter: Build Web'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'build/web'
+      artifactName: 'web'
